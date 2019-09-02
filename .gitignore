@@ -1,3 +1,6 @@
 v15
 *.dll
 *.pdb
+Debug
+Release
+packages

@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistantCore", "AssistantCore\AssistantCore.csproj", "{BA27BAB1-F55D-4AF0-B899-7EB7A382A21C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{72784A8A-06A0-4585-89D9-158A88909CC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{3CF0AE50-DB6A-49A3-9713-AF22A5ACB5F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceUI", "UI\VoiceUI\VoiceUI.csproj", "{0E3B655B-438E-45AC-AB40-EFAFBFCB290A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "UI\ConsoleUI\ConsoleUI.csproj", "{7FD1CA7C-5538-4761-9D4C-749A69B9BC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "Plugins\TestPlugin\TestPlugin.csproj", "{5A7B05A4-749C-42CB-A55E-ED54D5B796FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlugin", "Plugins\MusicPlugin\MusicPlugin.csproj", "{EEF5B8CB-D5D5-4A8F-A629-AE74270A809C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA27BAB1-F55D-4AF0-B899-7EB7A382A21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA27BAB1-F55D-4AF0-B899-7EB7A382A21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA27BAB1-F55D-4AF0-B899-7EB7A382A21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA27BAB1-F55D-4AF0-B899-7EB7A382A21C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3B655B-438E-45AC-AB40-EFAFBFCB290A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3B655B-438E-45AC-AB40-EFAFBFCB290A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3B655B-438E-45AC-AB40-EFAFBFCB290A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3B655B-438E-45AC-AB40-EFAFBFCB290A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FD1CA7C-5538-4761-9D4C-749A69B9BC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FD1CA7C-5538-4761-9D4C-749A69B9BC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FD1CA7C-5538-4761-9D4C-749A69B9BC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FD1CA7C-5538-4761-9D4C-749A69B9BC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7B05A4-749C-42CB-A55E-ED54D5B796FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7B05A4-749C-42CB-A55E-ED54D5B796FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7B05A4-749C-42CB-A55E-ED54D5B796FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7B05A4-749C-42CB-A55E-ED54D5B796FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF5B8CB-D5D5-4A8F-A629-AE74270A809C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF5B8CB-D5D5-4A8F-A629-AE74270A809C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF5B8CB-D5D5-4A8F-A629-AE74270A809C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF5B8CB-D5D5-4A8F-A629-AE74270A809C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E3B655B-438E-45AC-AB40-EFAFBFCB290A} = {3CF0AE50-DB6A-49A3-9713-AF22A5ACB5F2}
+		{7FD1CA7C-5538-4761-9D4C-749A69B9BC10} = {3CF0AE50-DB6A-49A3-9713-AF22A5ACB5F2}
+		{5A7B05A4-749C-42CB-A55E-ED54D5B796FC} = {72784A8A-06A0-4585-89D9-158A88909CC9}
+		{EEF5B8CB-D5D5-4A8F-A629-AE74270A809C} = {72784A8A-06A0-4585-89D9-158A88909CC9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CFE0D9C-190F-47DC-B710-706BB6988160}
+	EndGlobalSection
+EndGlobal

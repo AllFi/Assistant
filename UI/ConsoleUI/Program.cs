@@ -1,7 +1,5 @@
 ﻿using AssistantCore;
-using AssistantCore.Russian;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace ConsoleUI
@@ -10,10 +8,8 @@ namespace ConsoleUI
     {
         static void Main( string[] args )
         {
-            Assistant assistant = new Assistant( $"{Directory.GetCurrentDirectory()}/Plugins", Receive, $"{Directory.GetCurrentDirectory()}/RussianLanguage/WordNet" );
+            Assistant assistant = new Assistant( $"{Directory.GetCurrentDirectory()}/Plugins", Receive, $"{Directory.GetCurrentDirectory()}/WordNet" );
             assistant.Start();
-
-            var stemmer = new RussianStemmer();
 
             while ( true )
             {
@@ -21,10 +17,6 @@ namespace ConsoleUI
                 var request = Console.ReadLine().Replace( "Вы: ", "" );
                 assistant.HandleRequest( request );
             }
-            //Clear();
-
-            //Console.ReadLine();
-            //Console.ReadKey();
         }
 
         public static void Receive( AssistantResponse response )

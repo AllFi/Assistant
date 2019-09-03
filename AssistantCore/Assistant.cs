@@ -1,4 +1,4 @@
-﻿using AssistantCore.Russian;
+﻿using AssistantCore.RussianLanguage;
 using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Events;
 using System;
@@ -23,7 +23,7 @@ namespace AssistantCore
         {
             _bot = new OscovaBot();
             _bot.Plugins.LoadFromDirectory( _pluginsDirectory, fileInfo => fileInfo.Name.ToLower().EndsWith( "plugin.dll" ) );
-            _bot.Language = new RussianLanguage( _wordNetDirectory );
+            _bot.Language.WordNet.LoadFromDirectory( _wordNetDirectory );
             _bot.Trainer.StartTraining();
             _bot.MainUser.ResponseReceived += Reply;
             _receiver.Invoke( new AssistantResponse( "Жду ваших указаний!" ) );
@@ -31,7 +31,7 @@ namespace AssistantCore
 
         public void HandleRequest( string expression )
         {
-            var evaluationResult = _bot.Evaluate( expression );
+            var evaluationResult = _bot.Evaluate( RussianTranslator.Translate( expression ) );
             Console.WriteLine( evaluationResult.SuggestedIntent.Score );
             evaluationResult.Invoke();
         }

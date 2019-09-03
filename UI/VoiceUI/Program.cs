@@ -17,7 +17,7 @@ namespace VoiceUI
 
         static void Main( string[] args )
         {
-            _assistant = new Assistant( $"{Directory.GetCurrentDirectory()}/Plugins", TextToSpeech, $"{Directory.GetCurrentDirectory()}/RussianLanguage/WordNet" );
+            _assistant = new Assistant( $"{Directory.GetCurrentDirectory()}/Plugins", TextToSpeech, $"{Directory.GetCurrentDirectory()}/WordNet" );
             _assistant.Start();
             InitHttpClient();
 
@@ -41,8 +41,11 @@ namespace VoiceUI
             {
                 e.Result.Audio.WriteToWaveStream( ms );
                 var request = await SpeechToText( ms );
-                Console.WriteLine( request );
-                _assistant.HandleRequest( request );
+                if ( !String.IsNullOrEmpty( request ) )
+                {
+                    Console.WriteLine( request );
+                    _assistant.HandleRequest( request );
+                }
             }
         }
         private static readonly HttpClient http = new HttpClient();
@@ -51,7 +54,7 @@ namespace VoiceUI
         {
             http.DefaultRequestHeaders.Add( "Authorization", $"Bearer {"CV5BYP4W3CSLZ5IQCEXEX6BBNR5TKJVA"}" );
             http.DefaultRequestHeaders.Add( "Accept-Language", "ru-RU" );
-            http.Timeout = TimeSpan.FromSeconds( 5 );
+            http.Timeout = TimeSpan.FromSeconds( 10 );
         }
 
         private static async Task<string> SpeechToText( MemoryStream ms )
@@ -70,8 +73,9 @@ namespace VoiceUI
                 Console.WriteLine( sw.ElapsedMilliseconds );
                 return respObj._text;
             }
-            catch
+            catch ( Exception ex )
             {
+                Console.WriteLine( ex.Message );
                 return String.Empty;
             }
         }

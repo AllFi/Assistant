@@ -61,35 +61,35 @@
     <Compile Include="Assistant.cs" />
     <Compile Include="AssistantResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RussianLanguage\RussianLanguage.cs" />
-    <Compile Include="RussianLanguage\RussianStemmer.cs" />
+    <Compile Include="RussianTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="RussianLanguage\WordNet\data.adj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\data.adj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\data.adv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\data.adv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\data.noun">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\data.noun">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\data.verb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\data.verb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\index.adj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\index.adj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\index.adv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\index.adv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\index.noun">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\index.noun">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RussianLanguage\WordNet\index.verb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="WordNet\index.verb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

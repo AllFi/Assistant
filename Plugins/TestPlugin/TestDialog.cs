@@ -13,34 +13,22 @@ namespace TestPluginNamespace
 
     public class TestDialog : Dialog
     {
-        [Expression( "привет сэм" )]
+        [Expression( "hellp" )]
         public void Hello( Context context, Result result )
         {
             result.SendResponse( "привет человек" );
         }
 
-        [Expression( "пока сэм" )]
+        [Expression( "good bye" )]
         public void Bye( Context context, Result result )
         {
             result.SendResponse( "пока человек" );
         }
 
-        [Expression( "проснись сэм" )]
+        [Expression( "wake up" )]
         public void WakeUp( Context context, Result result )
         {
             result.SendResponse( "уже на ногах" );
-        }
-
-        [Expression( "заткнись" )]
-        public void ShutUp( Context context, Result result )
-        {
-            result.SendResponse( "сам заткнись" );
-        }
-
-        [Expression( "бей бот" )]
-        public void Beat( Context context, Result result )
-        {
-            result.SendResponse( "бью" );
         }
     }
 }

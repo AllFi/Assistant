@@ -13,7 +13,7 @@ namespace TestPluginNamespace
 
     public class TestDialog : Dialog
     {
-        [Expression( "hellp" )]
+        [Expression( "hello" )]
         public void Hello( Context context, Result result )
         {
             result.SendResponse( "привет человек" );
@@ -29,6 +29,12 @@ namespace TestPluginNamespace
         public void WakeUp( Context context, Result result )
         {
             result.SendResponse( "уже на ногах" );
+        }
+
+        [Fallback]
+        public void GlobalFallback( Context context, Result result )
+        {
+
         }
     }
 }

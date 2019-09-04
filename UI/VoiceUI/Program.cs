@@ -48,6 +48,7 @@ namespace VoiceUI
                 }
             }
         }
+
         private static readonly HttpClient http = new HttpClient();
 
         private static void InitHttpClient()

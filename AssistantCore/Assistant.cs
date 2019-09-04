@@ -24,6 +24,7 @@ namespace AssistantCore
             _bot = new OscovaBot();
             _bot.Plugins.LoadFromDirectory( _pluginsDirectory, fileInfo => fileInfo.Name.ToLower().EndsWith( "plugin.dll" ) );
             _bot.Language.WordNet.LoadFromDirectory( _wordNetDirectory );
+            _bot.Configuration.Scoring.MinimumScore = 0.5;
             _bot.Trainer.StartTraining();
             _bot.MainUser.ResponseReceived += Reply;
             _receiver.Invoke( new AssistantResponse( "Жду ваших указаний!" ) );
@@ -31,9 +32,16 @@ namespace AssistantCore
 
         public void HandleRequest( string expression )
         {
-            var evaluationResult = _bot.Evaluate( RussianTranslator.Translate( expression ) );
-            Console.WriteLine( evaluationResult.SuggestedIntent.Score );
-            evaluationResult.Invoke();
+            try
+            {
+                var evaluationResult = _bot.Evaluate( RussianTranslator.Translate( expression ) );
+                Console.WriteLine( evaluationResult.SuggestedIntent.Score );
+                evaluationResult.Invoke();
+            }
+            catch ( Exception ex )
+            {
+                _receiver.Invoke( new AssistantResponse( $"Произошла ошибка: {ex.Message}" ) );
+            }
         }
 
         private void Reply( object sender, ResponseReceivedEventArgs args )

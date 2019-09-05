@@ -1,8 +1,8 @@
 ﻿using MusicPlugin.MusicProviders;
-using MusicPlugin.Utils;
 using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Attributes;
 using System.Collections.Generic;
+using Assystant.SystemHelpers;
 
 namespace MusicPlugin
 {
@@ -70,21 +70,21 @@ namespace MusicPlugin
         [Expression( "volume up" )]
         public void VolumeUp( Context context, Result result )
         {
-            Volume.Up();
+            VolumeHelper.Up();
             result.SendResponse( "как вам угодно" );
         }
 
         [Expression( "volume down" )]
         public void VolumeDown( Context context, Result result )
         {
-            Volume.Down();
+            VolumeHelper.Down();
             result.SendResponse( "как вам угодно" );
         }
 
         [Expression( "mute" )]
         public void VolumeMute( Context context, Result result )
         {
-            Volume.Mute();
+            VolumeHelper.Mute();
             result.SendResponse( "как вам угодно" );
         }
     }

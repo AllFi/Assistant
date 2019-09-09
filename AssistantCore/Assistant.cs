@@ -1,7 +1,7 @@
-﻿using AssistantCore.RussianLanguage;
-using Syn.Bot.Oscova;
+﻿using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Events;
 using System;
+using TranslationHelper.Translator;
 
 namespace AssistantCore
 {
@@ -34,7 +34,7 @@ namespace AssistantCore
         {
             try
             {
-                var evaluationResult = _bot.Evaluate( RussianTranslator.Translate( expression ) );
+                var evaluationResult = _bot.Evaluate( Translator.RussianToEnglish( expression ) );
                 Console.WriteLine( evaluationResult.SuggestedIntent.Score );
                 evaluationResult.Invoke();
             }

@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerPlugin", "Plugins\Time
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsingHelpers", "Helpers\ParsingHelpers\ParsingHelpers.csproj", "{92A260D4-9604-47D3-AACE-34F0E5D28252}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationHelper", "Helpers\TranslationHelper\TranslationHelper.csproj", "{113783EC-C84A-499B-9C28-BB22C8374BBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{92A260D4-9604-47D3-AACE-34F0E5D28252}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A260D4-9604-47D3-AACE-34F0E5D28252}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A260D4-9604-47D3-AACE-34F0E5D28252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113783EC-C84A-499B-9C28-BB22C8374BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113783EC-C84A-499B-9C28-BB22C8374BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113783EC-C84A-499B-9C28-BB22C8374BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113783EC-C84A-499B-9C28-BB22C8374BBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{0CC6FBBA-E554-434D-8617-39A270736B02} = {E38095AF-88A5-4162-922D-AA6A4A7ADB53}
 		{AD7DCC28-721C-4EC9-B743-BC7D6DCE07EC} = {72784A8A-06A0-4585-89D9-158A88909CC9}
 		{92A260D4-9604-47D3-AACE-34F0E5D28252} = {E38095AF-88A5-4162-922D-AA6A4A7ADB53}
+		{113783EC-C84A-499B-9C28-BB22C8374BBE} = {E38095AF-88A5-4162-922D-AA6A4A7ADB53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CFE0D9C-190F-47DC-B710-706BB6988160}

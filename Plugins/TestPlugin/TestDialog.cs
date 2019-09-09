@@ -30,11 +30,5 @@ namespace TestPluginNamespace
         {
             result.SendResponse( "уже на ногах" );
         }
-
-        [Fallback]
-        public void GlobalFallback( Context context, Result result )
-        {
-
-        }
     }
 }

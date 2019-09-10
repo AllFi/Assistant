@@ -25,7 +25,7 @@ namespace WeatherPlugin
             _mainWeatherProvider = _weatherProviders[0];
         }
 
-        [Expression( "weather outside" )]
+        [Expression( "погода за окном" )]
         public void TurnOn( Context context, Result result )
         {
             result.SendResponse( _mainWeatherProvider.GetCurrentWeather().ToHumanString() );

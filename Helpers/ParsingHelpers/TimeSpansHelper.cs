@@ -17,11 +17,13 @@ namespace ParsingHelpers
 
         private static Dictionary<string, UnitOfTime> _unitsOfTime = new Dictionary<string, UnitOfTime>()
         {
-            ["second"] = UnitOfTime.Second,
-            ["minute"] = UnitOfTime.Minute,
-            ["hour"] = UnitOfTime.Hour,
-            ["day"] = UnitOfTime.Day,
-            ["week"] = UnitOfTime.Week,
+            ["секунд"] = UnitOfTime.Second,
+            ["минут"] = UnitOfTime.Minute,
+            ["час"] = UnitOfTime.Hour,
+            ["день"] = UnitOfTime.Day,
+            ["дня"] = UnitOfTime.Day,
+            ["дней"] = UnitOfTime.Day,
+            ["недел"] = UnitOfTime.Week,
         };
 
         private static TimeSpan AddTo( TimeSpan timeSpan, string numberWords, UnitOfTime unit )

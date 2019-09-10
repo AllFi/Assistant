@@ -5,10 +5,10 @@ namespace ParsingHelpers
 {
     public static class NumbersHelper
     {
-        private static string[] _singles = new string[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
-        private static string[] _teens = new string[] { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-        private static string[] _tens = new string[] { "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninty" };
-        private static string[] _powers = new string[] { "", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion" };
+        private static string[] _singles = new string[] { "ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять" };
+        private static string[] _teens = new string[] { "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать" };
+        private static string[] _tens = new string[] { "", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто" };
+        private static string[] _powers = new string[] { "", "тысяч", "миллион", "миллиард", "триллион" };
 
         public static int ParseNumber( string words ) => ( int )ParseNumberInternal( words );
 
@@ -43,9 +43,9 @@ namespace ParsingHelpers
             }
 
             {
-                int index = words.IndexOf( "hundred" );
+                int index = words.IndexOf( "сто" );
 
-                if ( index >= 0 && words[index + "hundred".Length] == ' ' )
+                if ( index >= 0 && words[index + "сто".Length] == ' ' )
                 {
                     ulong count = ParseNumberInternal( words.Substring( 0, index ) );
                     number += count * 100;
@@ -89,6 +89,10 @@ namespace ParsingHelpers
 
                     if ( index >= 0 && words[index + _singles[i].Length] == ' ' )
                     {
+                        // костыль под восемь, т.к. семь включено в восемь
+                        if ( words.Contains( "восемь" ) && i == 7 )
+                            continue;
+
                         number += ( uint )( i );
                         words = words.Remove( 0, index );
                     }

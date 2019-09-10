@@ -13,7 +13,7 @@ namespace TestPluginNamespace
 
     public class TestDialog : Dialog
     {
-        [Expression( "hello" )]
+        [Expression( "привет" )]
         public void Hello( Context context, Result result )
         {
             result.SendResponse( "привет человек" );

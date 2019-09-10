@@ -25,67 +25,88 @@ namespace MusicPlugin
             _mainMusicProvider = _musicProviders[0];
         }
 
-        [Expression( "turn on @sys.text" )]
+        [Expression( "включи @sys.text" )]
         public void TurnOn( Context context, Result result )
         {
             _mainMusicProvider.TurnOn( result.Entities.OfType( Sys.Text ).Value );
-            result.SendResponse( "как вам угодно" );
+            result.SendResponse( "приятного прослушивания" );
         }
 
-        [Expression( "turn the music off" )]
+        [Expression( "выключи музыку" )]
         public void TurnOff( Context context, Result result )
         {
             _mainMusicProvider.TurnOff();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "next" )]
+        [Expression( "дальше" )]
         public void Next( Context context, Result result )
         {
             _mainMusicProvider.Next();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "previous" )]
+        [Expression( "назад" )]
         public void Previous( Context context, Result result )
         {
             _mainMusicProvider.Previous();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "pause" )]
+        [Expression( "пауза" )]
         public void Pause( Context context, Result result )
         {
             _mainMusicProvider.Pause();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "play" )]
+        [Expression( "верни музыку" )]
         public void Play( Context context, Result result )
         {
             _mainMusicProvider.Play();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "volume up" )]
+        [Expression( "прибавь громкость" )]
         public void VolumeUp( Context context, Result result )
         {
             VolumeHelper.Up();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "volume down" )]
+        [Expression( "убавь громкость" )]
         public void VolumeDown( Context context, Result result )
         {
             VolumeHelper.Down();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "mute" )]
-        public void VolumeMute( Context context, Result result )
+        [Expression( "выключи звук" )]
+        public void VolumeMuteOn( Context context, Result result )
         {
-            VolumeHelper.Mute();
-            result.SendResponse( "как вам угодно" );
+            if ( VolumeHelper.IsMuted() )
+            {
+                result.SendResponse( "эм.. но звук итак выключен" );
+            }
+            else
+            {
+                VolumeHelper.Mute();
+                result.SendResponse( "как вам угодно" );
+            }
+        }
+
+        [Expression( "верни звук" )]
+        public void VolumeMuteOff( Context context, Result result )
+        {
+            if ( !VolumeHelper.IsMuted() )
+            {
+                result.SendResponse( "эм.. но звук итак включен" );
+            }
+            else
+            {
+                VolumeHelper.Mute();
+                result.SendResponse( "как вам угодно" );
+            }
         }
     }
 }

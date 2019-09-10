@@ -19,7 +19,7 @@ namespace TimerPlugin
     {
         private List<Timer> _timers = new List<Timer>();
 
-        [Expression( "set the timer for @sys.text" )]
+        [Expression( "поставь таймер на @sys.text" )]
         public void SetTimerForSeconds( Context context, Result result )
         {
             var timeWords = result.Entities.OfType( Sys.Text ).Value;

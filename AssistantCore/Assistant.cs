@@ -1,7 +1,6 @@
 ﻿using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Events;
 using System;
-using TranslationHelper.Translator;
 
 namespace AssistantCore
 {
@@ -34,13 +33,13 @@ namespace AssistantCore
         {
             try
             {
-                var evaluationResult = _bot.Evaluate( Translator.RussianToEnglish( expression ) );
-                Console.WriteLine( evaluationResult.SuggestedIntent.Score );
+                var evaluationResult = _bot.Evaluate( expression );
                 evaluationResult.Invoke();
             }
             catch ( Exception ex )
             {
-                _receiver.Invoke( new AssistantResponse( $"Произошла ошибка: {ex.Message}" ) );
+                _receiver.Invoke( new AssistantResponse( $"При выполнении команды произошла ошибка!" ) );
+                Console.WriteLine( ex.Message );
             }
         }
 

@@ -28,7 +28,7 @@ namespace VoiceUI
         {
             http.DefaultRequestHeaders.Add( "Authorization", $"Bearer {"CV5BYP4W3CSLZ5IQCEXEX6BBNR5TKJVA"}" );
             http.DefaultRequestHeaders.Add( "Accept-Language", "ru-RU" );
-            http.Timeout = TimeSpan.FromSeconds( 10 );
+            http.Timeout = TimeSpan.FromSeconds( 20 );
         }
 
         static void Main( string[] args )
@@ -69,8 +69,8 @@ namespace VoiceUI
 
             StartListening( out bool wasMuted );
             var speech = await Task.Run( () => Record() );
-            var request = await SpeechToText( speech );
             FinishListening( wasMuted );
+            var request = await SpeechToText( speech );
             if ( !String.IsNullOrEmpty( request ) )
             {
                 Console.WriteLine( request );

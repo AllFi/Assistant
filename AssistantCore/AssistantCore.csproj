@@ -90,6 +90,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\TranslationHelper\TranslationHelper.csproj">
+      <Project>{113783EC-C84A-499B-9C28-BB22C8374BBE}</Project>
+      <Name>TranslationHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

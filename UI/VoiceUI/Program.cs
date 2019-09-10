@@ -1,5 +1,6 @@
 ﻿using AssistantCore;
 using Assystant.SystemHelpers;
+using NAudio.Lame;
 using NAudio.Wave;
 using Newtonsoft.Json;
 using System;
@@ -64,7 +65,7 @@ namespace VoiceUI
 
         private static async void HandleSpeech( object sender, SpeechRecognizedEventArgs e )
         {
-            if ( e.Result.Grammar.Name != "Simba" || _commandInProgress || e.Result.Confidence < 0.93 )
+            if ( e.Result.Grammar.Name != "Simba" || _commandInProgress || e.Result.Confidence < 0.935 )
                 return;
 
             StartListening( out bool wasMuted );
@@ -131,9 +132,21 @@ namespace VoiceUI
                             Thread.Sleep( 1000 );
                         }
                         waveIn.StopRecording();
-                        return ms.ToArray();
                     }
+                    return ConvertWavToMp3( ms.ToArray() );
                 }
+            }
+        }
+
+        private static byte[] ConvertWavToMp3( byte[] wavFile )
+        {
+            using ( var retMs = new MemoryStream() )
+            using ( var ms = new MemoryStream( wavFile ) )
+            using ( var rdr = new WaveFileReader( ms ) )
+            using ( var wtr = new LameMP3FileWriter( retMs, rdr.WaveFormat, quality: LAMEPreset.ABR_16 ) )
+            {
+                rdr.CopyTo( wtr );
+                return retMs.ToArray();
             }
         }
 
@@ -141,11 +154,12 @@ namespace VoiceUI
         {
             try
             {
+                Console.WriteLine( speech.Length );
                 Stopwatch sw = Stopwatch.StartNew();
                 var context = HttpUtility.UrlEncode( $"{{\"locale\": \"ru_RU\"}}" );
                 var uri = $"https://api.wit.ai/speech?v=20170307&context={context}";
                 var data = new ByteArrayContent( speech );
-                data.Headers.Add( "Content-Type", "audio/raw;encoding=signed-integer;bits=16;rate=8000;endian=little" );
+                data.Headers.Add( "Content-Type", "audio/mpeg3" );
                 var response = await http.PostAsync( uri, data );
                 var sResponse = await response.Content.ReadAsStringAsync();
                 var respObj = new { _text = "" };
@@ -164,7 +178,7 @@ namespace VoiceUI
         {
             SpeechSynthesizer synth = new SpeechSynthesizer();
             synth.SetOutputToDefaultAudioDevice();
-            synth.SpeakAsync( response.Text );
+            synth.Speak( response.Text );
         }
     }
 }

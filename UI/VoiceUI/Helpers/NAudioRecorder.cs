@@ -63,7 +63,7 @@ namespace VoiceUI.Helpers
 
         private void FinishListening( bool wasMuted )
         {
-            if ( !wasMuted ) VolumeHelper.Mute();
+            if ( !wasMuted ) VolumeHelper.UnMute();
             _commandInProgress = false;
         }
 

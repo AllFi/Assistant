@@ -3,6 +3,7 @@ using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Attributes;
 using System.Collections.Generic;
 using Assystant.SystemHelpers;
+using ParsingHelpers;
 
 namespace MusicPlugin
 {
@@ -67,14 +68,22 @@ namespace MusicPlugin
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "прибавь громкость" )]
+        [Expression( "сделай погромче" )]
         public void VolumeUp( Context context, Result result )
         {
             VolumeHelper.Up();
             result.SendResponse( "как вам угодно" );
         }
 
-        [Expression( "убавь громкость" )]
+        [Expression( "громкость на @sys.text" )]
+        public void SetVolume( Context context, Result result )
+        {
+            var number = result.Entities.OfType( Sys.Text ).Value;
+            VolumeHelper.Set( NumbersHelper.ParseNumber( number ) );
+            result.SendResponse( $"как вам угодно" );
+        }
+
+        [Expression( "сделай потише" )]
         public void VolumeDown( Context context, Result result )
         {
             VolumeHelper.Down();
@@ -84,29 +93,15 @@ namespace MusicPlugin
         [Expression( "выключи звук" )]
         public void VolumeMuteOn( Context context, Result result )
         {
-            if ( VolumeHelper.IsMuted() )
-            {
-                result.SendResponse( "эм.. но звук итак выключен" );
-            }
-            else
-            {
-                VolumeHelper.Mute();
-                result.SendResponse( "как вам угодно" );
-            }
+            VolumeHelper.Mute();
+            result.SendResponse( "как вам угодно" );
         }
 
         [Expression( "верни звук" )]
         public void VolumeMuteOff( Context context, Result result )
         {
-            if ( !VolumeHelper.IsMuted() )
-            {
-                result.SendResponse( "эм.. но звук итак включен" );
-            }
-            else
-            {
-                VolumeHelper.Mute();
-                result.SendResponse( "как вам угодно" );
-            }
+            VolumeHelper.UnMute();
+            result.SendResponse( "как вам угодно" );
         }
     }
 }

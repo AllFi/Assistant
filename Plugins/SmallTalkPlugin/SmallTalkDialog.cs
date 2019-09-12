@@ -1,8 +1,10 @@
-﻿using Syn.Bot.Oscova;
+﻿using OpenQA.Selenium.Chrome;
+using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Attributes;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace SmallTalkPlugin
 {
@@ -16,30 +18,54 @@ namespace SmallTalkPlugin
 
     public class SmallTalkDialog : Dialog
     {
-        private Dictionary<string, string> _smallTalks = new Dictionary<string, string>();
+        private ChromeDriver _chromeDriver { get; set; }
 
         public SmallTalkDialog()
         {
-            var smallTalks = File.ReadAllLines( "Plugins/Resources/smalltalks.txt" ).Select( smallTalk => smallTalk.Split( '=' ) );
-            foreach ( var smallTalk in smallTalks )
+            InitChromeDriverIfNeccessary();
+        }
+
+        private void InitChromeDriverIfNeccessary()
+        {
+            if ( _chromeDriver == null )
             {
-                var request = smallTalk[0];
-                var response = smallTalk[1];
-                _smallTalks.Add( request, response );
+                var service = ChromeDriverService.CreateDefaultService();
+                service.HideCommandPromptWindow = true;
+                ChromeOptions options = new ChromeOptions();
+                options.AddExcludedArgument( "enable-automation" );
+                options.AddAdditionalCapability( "useAutomationExtension", false );
+                options.AddArgument( "--log-level=3" );
+                _chromeDriver = new ChromeDriver( service, options );
+                //_chromeDriver.Manage().Window.Position = new System.Drawing.Point( -1000, -1000 );
+                _chromeDriver.Url = @"http://p-bot.ru/";
+                _chromeDriver.FindElementByXPath( @"//*[@id=""btnSay""]" ).Click();
             }
         }
 
         [Fallback]
         public void SmallTalk( Context context, Result result )
         {
-            var request = result.Request.Text.Replace( "?", "" ).Replace( "!", "" ).ToLower();
-            if ( _smallTalks.ContainsKey( request ) )
+            var request = result.Request.Text;
+            _chromeDriver.FindElementByXPath( @"//*[@id=""user_request""]" ).SendKeys( request );
+            _chromeDriver.FindElementByXPath( @"//*[@id=""btnSay""]" ).Click();
+            
+            var output = _chromeDriver.FindElementByXPath( @"//*[@id=""answer_0""]" ).Text.Replace( "ρBot: ", "" );
+            while ( output == "думаю..." )
             {
-                result.SendResponse( _smallTalks[request] );
-                return;
+                Thread.Sleep( 100 );
+                output = _chromeDriver.FindElementByXPath( @"//*[@id=""answer_0""]" ).Text.Replace( "ρBot: ", "" );
             }
 
-            result.SendResponse( "Повторите пожалуйста!" );
+            var lastLength = 0;
+            do
+            {
+                lastLength = output.Length;
+                Thread.Sleep( 100 );
+                output = _chromeDriver.FindElementByXPath( @"//*[@id=""answer_0""]" ).Text.Replace( "ρBot: ", "" );
+            }
+            while ( output.Length != lastLength );
+
+            result.SendResponse( output );
         }
     }
 }

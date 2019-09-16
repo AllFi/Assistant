@@ -68,6 +68,12 @@ namespace MusicPlugin
             result.SendResponse( "как вам угодно" );
         }
 
+        [Expression( "что это за песня" )]
+        public void WhoIsIt( Context context, Result result )
+        {
+            result.SendResponse( _mainMusicProvider.WhoIsIt() );
+        }
+
         [Expression( "сделай погромче" )]
         public void VolumeUp( Context context, Result result )
         {

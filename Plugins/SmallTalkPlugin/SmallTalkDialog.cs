@@ -1,9 +1,6 @@
 ﻿using OpenQA.Selenium.Chrome;
 using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Attributes;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 
 namespace SmallTalkPlugin

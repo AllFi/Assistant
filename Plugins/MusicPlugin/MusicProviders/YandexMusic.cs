@@ -60,6 +60,13 @@ namespace MusicPlugin.MusicProviders
             _chromeDriver.Url = @"https://music.yandex.ru/home";
         }
 
+        public override string WhoIsIt()
+        {
+            var title = _chromeDriver.FindElement( By.XPath( @"//*[@id=""nb-1""]/body/div[1]/div[10]/div[1]/div[2]/div[6]/div/div/div[1]/div[2]/div/div[1]/a" ) );
+            var group = _chromeDriver.FindElement( By.XPath( @"//*[@id=""nb-1""]/body/div[1]/div[10]/div[1]/div[2]/div[6]/div/div/div[1]/div[2]/div/div[2]/span/a" ) );
+            return $"Песня {title.Text} группы {group.Text}";
+        }
+
         private void InitChromeDriverIfNeccessary()
         {
             if ( _chromeDriver == null )
@@ -71,7 +78,7 @@ namespace MusicPlugin.MusicProviders
                 options.AddAdditionalCapability( "useAutomationExtension", false );
                 options.AddArgument( "--log-level=3" );
                 _chromeDriver = new ChromeDriver( service, options );
-                _chromeDriver.Manage().Window.Position = new System.Drawing.Point( -1000, -1000 );
+                //_chromeDriver.Manage().Window.Position = new System.Drawing.Point( -1000, -1000 );
                 _chromeDriver.Url = @"https://music.yandex.ru/home";
 
                 // signing in

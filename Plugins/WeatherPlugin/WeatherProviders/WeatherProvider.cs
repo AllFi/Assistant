@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Device.Location;
+using System.Threading;
 
 namespace WeatherPlugin.WeatherProviders
 {
@@ -16,6 +17,8 @@ namespace WeatherPlugin.WeatherProviders
                     return _watcher;
                 _watcher = new GeoCoordinateWatcher();
                 _watcher.TryStart( false, TimeSpan.FromMilliseconds( 10000 ) );
+                while ( _watcher.Status != GeoPositionStatus.Ready )
+                    Thread.Sleep( 50 );
                 return _watcher;
             }
         }

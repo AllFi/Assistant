@@ -24,13 +24,21 @@ namespace MusicPlugin.MusicProviders
         public override void Pause()
         {
             var pauseButton = _chromeDriver.FindElement( By.XPath( @"//*[@id=""nb-1""]/body/div[1]/div[10]/div[1]/div[2]/div[3]" ) );
-            pauseButton.Click();
+            if ( pauseButton.GetProperty("title").Contains( "Пауза" ) )
+                pauseButton.Click();
         }
 
         public override void Play()
         {
             var playButton = _chromeDriver.FindElement( By.XPath( @"//*[@id=""nb-1""]/body/div[1]/div[10]/div[1]/div[2]/div[3]" ) );
-            playButton.Click();
+            if ( playButton.GetProperty( "title" ).Contains( "Играть" ) )
+                playButton.Click();
+        }
+
+        public override bool IsPlaying()
+        {
+            var playButton = _chromeDriver.FindElement( By.XPath( @"//*[@id=""nb-1""]/body/div[1]/div[10]/div[1]/div[2]/div[3]" ) );
+            return playButton.GetProperty( "title" ).Contains( "Пауза" );
         }
 
         public override void Next()

@@ -1,4 +1,4 @@
-﻿using Assystant.SystemHelpers;
+﻿using AssistantHelpers.SystemHelpers;
 using NAudio.Lame;
 using NAudio.Wave;
 using System;

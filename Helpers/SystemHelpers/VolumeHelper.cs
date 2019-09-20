@@ -1,7 +1,7 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
 using System;
 
-namespace Assystant.SystemHelpers
+namespace AssistantHelpers.SystemHelpers
 {
     public class VolumeHelper
     {

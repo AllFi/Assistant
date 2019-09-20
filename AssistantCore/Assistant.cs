@@ -47,5 +47,14 @@ namespace AssistantCore
         {
             _receiver.Invoke( new AssistantResponse( args.Response.Text ) );
         }
+
+        public delegate void MuteUnmuteHandler();
+        
+        public static event MuteUnmuteHandler Mute;
+        public void MuteAllPlugins() => Mute();
+
+        public static event MuteUnmuteHandler Unmute;
+        public void UnmuteAllPlugins() => Unmute();
+
     }
 }

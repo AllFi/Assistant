@@ -62,7 +62,9 @@ namespace VoiceUI
         {
             var synth = new SpeechSynthesizer();
             synth.SetOutputToDefaultAudioDevice();
+            _assistant.MuteAllPlugins();
             synth.Speak( response.Text );
+            _assistant.UnmuteAllPlugins();
         }
     }
 }

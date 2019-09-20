@@ -11,5 +11,6 @@ namespace MusicPlugin.MusicProviders
         public abstract void Next();
         public abstract void Previous();
         public abstract string WhoIsIt();
+        public abstract bool IsPlaying();
     }
 }

@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AssistantCore\AssistantCore.csproj">
+      <Project>{ba27bab1-f55d-4af0-b899-7eb7a382a21c}</Project>
+      <Name>AssistantCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Helpers\ParsingHelpers\ParsingHelpers.csproj">
       <Project>{92A260D4-9604-47D3-AACE-34F0E5D28252}</Project>
       <Name>ParsingHelpers</Name>

@@ -2,7 +2,7 @@
 using Syn.Bot.Oscova;
 using Syn.Bot.Oscova.Attributes;
 using System.Collections.Generic;
-using Assystant.SystemHelpers;
+using AssistantHelpers.SystemHelpers;
 using ParsingHelpers;
 
 namespace MusicPlugin
@@ -24,6 +24,8 @@ namespace MusicPlugin
         {
             _musicProviders.Add( new YandexMusic() );
             _mainMusicProvider = _musicProviders[0];
+            AssistantCore.Assistant.Mute += TechnicalMute;
+            AssistantCore.Assistant.Unmute += TechnicalUnmute;
         }
 
         [Expression( "включи @sys.text" )]
@@ -108,6 +110,21 @@ namespace MusicPlugin
         {
             VolumeHelper.UnMute();
             result.SendResponse( "как вам угодно" );
+        }
+
+        private bool _hasPlayed;
+
+        public void TechnicalMute()
+        {
+            _hasPlayed = _mainMusicProvider.IsPlaying();
+            if ( _hasPlayed )
+                _mainMusicProvider.Pause();
+        }
+
+        public void TechnicalUnmute()
+        {
+            if ( _hasPlayed )
+                _mainMusicProvider.Play();
         }
     }
 }

@@ -85,7 +85,7 @@ namespace MusicPlugin
         public void SetVolume( Context context, Result result )
         {
             var number = result.Entities.OfType( Sys.Text ).Value;
-            VolumeHelper.Set( NumbersHelper.ParseNumber( number ) );
+            VolumeHelper.Set( (int)NumbersHelper.ParseNumber( number ) );
             result.SendResponse( $"как вам угодно" );
         }
 

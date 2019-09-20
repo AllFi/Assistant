@@ -1,104 +1,124 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace ParsingHelpers
 {
     public static class NumbersHelper
     {
-        private static string[] _singles = new string[] { "ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять" };
-        private static string[] _teens = new string[] { "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать" };
-        private static string[] _tens = new string[] { "", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто" };
-        private static string[] _powers = new string[] { "", "тысяч", "миллион", "миллиард", "триллион" };
-
-        public static int ParseNumber( string words ) => ( int )ParseNumberInternal( words );
-
-        public static bool IsNumber( string word )
+        private static Dictionary<string, long> _singles = new Dictionary<string, long>
         {
-            return _singles.Contains( word ) || _teens.Contains( word ) || _tens.Contains( word ) || _powers.Contains( word );
+            ["ноль"] = 0,
+            ["один"] = 1,
+            ["одна"] = 1,
+            ["два"] = 2,
+            ["две"] = 2,
+            ["три"] = 3,
+            ["четыре"] = 4,
+            ["пять"] = 5,
+            ["шесть"] = 6,
+            ["семь"] = 7,
+            ["восемь"] = 8,
+            ["девять"] = 9
+        };
+
+        private static Dictionary<string, long> _teens = new Dictionary<string, long>
+        {
+            ["десять"] = 10,
+            ["одиннадцать"] = 11,
+            ["двенадцать"] = 12,
+            ["тринадцать"] = 13,
+            ["четырнадцать"] = 14,
+            ["пятнадцать"] = 15,
+            ["шестнадцать"] = 16,
+            ["семнадцать"] = 17,
+            ["восемнадцать"] = 18,
+            ["девятнадцать"] = 19,
+        };
+
+        private static Dictionary<string, long> _tens = new Dictionary<string, long>
+        {
+            ["двадцать"] = 20,
+            ["тридцать"] = 30,
+            ["сорок"] = 40,
+            ["пятьдесят"] = 50,
+            ["шестьдесят"] = 60,
+            ["семьдесят"] = 70,
+            ["восемьдесят"] = 80,
+            ["девяносто"] = 90
+        };
+
+        private static Dictionary<string, long> _hundreds = new Dictionary<string, long>
+        {
+            ["сто"] = 100,
+            ["двести"] = 200,
+            ["триста"] = 300,
+            ["четыреста"] = 400,
+            ["пятьсот"] = 500,
+            ["шестьсот"] = 600,
+            ["семьсот"] = 700,
+            ["восемьсот"] = 800,
+            ["девятьсот"] = 900,
+        };
+
+        private static Dictionary<string, long> _powers = new Dictionary<string, long>
+        {
+            ["тысяч"] = 1000,
+            ["тысяча"] = 1000,
+            ["тысячи"] = 1000,
+            ["миллион"] = 1000000,
+            ["миллиона"] = 1000000,
+            ["миллионов"] = 1000000,
+            ["миллиард"] = 1000000000,
+            ["миллиарда"] = 1000000000,
+            ["миллиардов"] = 1000000000,
+            ["триллион"] = 1000000000000,
+            ["триллиона"] = 1000000000000,
+            ["триллионов"] = 1000000000000,
+            ["квадриллион"] = 1000000000000000,
+            ["квадриллиона"] = 1000000000000000,
+            ["квадриллионов"] = 1000000000000000,
+        };
+
+        public static bool IsNumber( this string russianWords )
+        {
+            return ParseNumber( russianWords ) > 0;
         }
 
-        // https://www.programmingalgorithms.com/algorithm/words-to-numbers
-        private static ulong ParseNumberInternal( string words )
+        public static long ParseNumber( this string russianWords )
         {
-            if ( string.IsNullOrEmpty( words ) ) return 0;
+            if ( string.IsNullOrEmpty( russianWords ) )
+                return 0;
 
-            words = words.Trim();
-            words += ' ';
+            var words = russianWords.Trim().Split( ' ' );
+            if ( words.Count() == 0 )
+                return 0;
 
-            ulong number = 0;
+            long number = 0;
+            long acc = 0;
 
-            for ( int i = _powers.Length - 1; i >= 0; i-- )
+            foreach ( var word in words )
             {
-                if ( !string.IsNullOrEmpty( _powers[i] ) )
+                if ( _powers.ContainsKey( word ) )
                 {
-                    int index = words.IndexOf( _powers[i] );
-
-                    if ( index >= 0 && words[index + _powers[i].Length] == ' ' )
-                    {
-                        ulong count = ParseNumberInternal( words.Substring( 0, index ) );
-                        number += count * ( ulong )Math.Pow( 1000, i );
-                        words = words.Remove( 0, index );
-                    }
+                    acc = acc > 0 ? acc : 1;
+                    number += acc * _powers[word];
+                    acc = 0;
                 }
+
+                if ( _hundreds.ContainsKey( word ) )
+                    acc += _hundreds[word];
+
+                if ( _tens.ContainsKey( word ) )
+                    acc += _tens[word];
+
+                if ( _teens.ContainsKey( word ) )
+                    acc += _teens[word];
+
+                if ( _singles.ContainsKey( word ) )
+                    acc += _singles[word];
             }
 
-            {
-                int index = words.IndexOf( "сто" );
-
-                if ( index >= 0 && words[index + "сто".Length] == ' ' )
-                {
-                    ulong count = ParseNumberInternal( words.Substring( 0, index ) );
-                    number += count * 100;
-                    words = words.Remove( 0, index );
-                }
-            }
-
-            for ( int i = _tens.Length - 1; i >= 0; i-- )
-            {
-                if ( !string.IsNullOrEmpty( _tens[i] ) )
-                {
-                    int index = words.IndexOf( _tens[i] );
-
-                    if ( index >= 0 && words[index + _tens[i].Length] == ' ' )
-                    {
-                        number += ( uint )( i * 10 );
-                        words = words.Remove( 0, index );
-                    }
-                }
-            }
-
-            for ( int i = _teens.Length - 1; i >= 0; i-- )
-            {
-                if ( !string.IsNullOrEmpty( _teens[i] ) )
-                {
-                    int index = words.IndexOf( _teens[i] );
-
-                    if ( index >= 0 && words[index + _teens[i].Length] == ' ' )
-                    {
-                        number += ( uint )( i + 10 );
-                        words = words.Remove( 0, index );
-                    }
-                }
-            }
-
-            for ( int i = _singles.Length - 1; i >= 0; i-- )
-            {
-                if ( !string.IsNullOrEmpty( _singles[i] ) )
-                {
-                    int index = words.IndexOf( _singles[i] + ' ' );
-
-                    if ( index >= 0 && words[index + _singles[i].Length] == ' ' )
-                    {
-                        // костыль под восемь, т.к. семь включено в восемь
-                        if ( words.Contains( "восемь" ) && i == 7 )
-                            continue;
-
-                        number += ( uint )( i );
-                        words = words.Remove( 0, index );
-                    }
-                }
-            }
-
+            number += acc;
             return number;
         }
     }

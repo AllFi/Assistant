@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationHelper", "Helper
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallTalkPlugin", "Plugins\SmallTalkPlugin\SmallTalkPlugin.csproj", "{98E95AB4-670A-4DE9-8DBD-014A2620DBC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationsPlugin", "Plugins\CalculationsPlugin\CalculationsPlugin.csproj", "{3853AED4-D99B-4CE0-A54C-1555F59899FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{98E95AB4-670A-4DE9-8DBD-014A2620DBC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E95AB4-670A-4DE9-8DBD-014A2620DBC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E95AB4-670A-4DE9-8DBD-014A2620DBC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3853AED4-D99B-4CE0-A54C-1555F59899FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3853AED4-D99B-4CE0-A54C-1555F59899FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3853AED4-D99B-4CE0-A54C-1555F59899FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3853AED4-D99B-4CE0-A54C-1555F59899FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{92A260D4-9604-47D3-AACE-34F0E5D28252} = {E38095AF-88A5-4162-922D-AA6A4A7ADB53}
 		{113783EC-C84A-499B-9C28-BB22C8374BBE} = {E38095AF-88A5-4162-922D-AA6A4A7ADB53}
 		{98E95AB4-670A-4DE9-8DBD-014A2620DBC4} = {72784A8A-06A0-4585-89D9-158A88909CC9}
+		{3853AED4-D99B-4CE0-A54C-1555F59899FE} = {72784A8A-06A0-4585-89D9-158A88909CC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CFE0D9C-190F-47DC-B710-706BB6988160}

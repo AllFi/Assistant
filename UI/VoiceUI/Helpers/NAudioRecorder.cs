@@ -12,6 +12,13 @@ namespace VoiceUI.Helpers
     {
         private DateTime _lastSpeechTime { get; set; }
         private bool _commandInProgress = false;
+        private string _signalPath = null;
+
+        public NAudioRecorder( string signalPath )
+        {
+            _signalPath = signalPath;
+        }
+
 
         public void HandleAudioStateChanging( object sender, AudioStateChangedEventArgs e )
         {
@@ -67,9 +74,9 @@ namespace VoiceUI.Helpers
             _commandInProgress = false;
         }
 
-        private static void MakeSignal()
+        private void MakeSignal()
         {
-            using ( var ms = File.OpenRead( "Resources/signal.mp3" ) )
+            using ( var ms = File.OpenRead( _signalPath ) )
             using ( var rdr = new Mp3FileReader( ms ) )
             using ( var wavStream = WaveFormatConversionStream.CreatePcmStream( rdr ) )
             using ( var baStream = new BlockAlignReductionStream( wavStream ) )

@@ -11,12 +11,12 @@ namespace VoiceUI.Helpers
     {
         private HttpClient _httpClient;
 
-        public WitAiSpeechRecognitionClient()
+        public WitAiSpeechRecognitionClient( string token, int timeoutSeconds )
         {
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add( "Authorization", $"Bearer {"CV5BYP4W3CSLZ5IQCEXEX6BBNR5TKJVA"}" );
+            _httpClient.DefaultRequestHeaders.Add( "Authorization", $"Bearer {token}" );
             _httpClient.DefaultRequestHeaders.Add( "Accept-Language", "ru-RU" );
-            _httpClient.Timeout = TimeSpan.FromSeconds( 10 );
+            _httpClient.Timeout = TimeSpan.FromSeconds( timeoutSeconds );
         }
 
         public async Task<string> SpeechToText( byte[] speech )

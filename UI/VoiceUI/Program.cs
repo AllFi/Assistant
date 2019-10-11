@@ -15,19 +15,41 @@ namespace VoiceUI
         private static SpeechRecognitionEngine _recognizer = null;
         private static WitAiSpeechRecognitionClient _speechRecognizerClient = null;
         private static NAudioRecorder _recorder = null;
+        private static SpeechSynthesizer _synth = null;
+        private static VoiceAssistantConfig _config = null;
 
         static void Main( string[] args )
         {
-            _speechRecognizerClient = new WitAiSpeechRecognitionClient();
-            _recorder = new NAudioRecorder();
-
-            using ( _recognizer = CreateSimbaCommandRecognizer() )
+            for ( int i = 0; i < 3; i++ )
             {
-                _assistant = new Assistant( $"{Directory.GetCurrentDirectory()}/Plugins", TextToSpeech, $"{Directory.GetCurrentDirectory()}/WordNet" );
-                _assistant.Start();
-                while ( true )
+                try
                 {
-                    Console.ReadLine();
+                    StartVoiceAssistant();
+                }
+                catch ( Exception ex )
+                {
+                    // TODO: добавь логирование
+                }
+            }
+        }
+
+        private static void StartVoiceAssistant()
+        {
+            _config = VoiceAssistantConfig.Default();
+            _speechRecognizerClient = new WitAiSpeechRecognitionClient( _config.WitAiToken, _config.WitAiTimeoutSeconds );
+            _recorder = new NAudioRecorder( _config.SignalPath );
+
+            using ( _synth = new SpeechSynthesizer() )
+            {
+                _synth.SetOutputToDefaultAudioDevice();
+                using ( _recognizer = CreateSimbaCommandRecognizer() )
+                {
+                    _assistant = new Assistant( _config.PluginsPath, TextToSpeech, _config.WordNetPath );
+                    _assistant.Start();
+                    while ( true )
+                    {
+                        Console.ReadLine();
+                    }
                 }
             }
         }
@@ -35,8 +57,8 @@ namespace VoiceUI
         private static SpeechRecognitionEngine CreateSimbaCommandRecognizer()
         {
             var recognizer = new SpeechRecognitionEngine( CultureInfo.GetCultureInfo( "en-US" ) );
-            var builder = new GrammarBuilder( "simba" ) { Culture = CultureInfo.GetCultureInfo( "en-US" ) };
-            var symbaGrammar = new Grammar( builder ) { Name = "Simba" };
+            var builder = new GrammarBuilder( _config.AssistantName ) { Culture = CultureInfo.GetCultureInfo( "en-US" ) };
+            var symbaGrammar = new Grammar( builder ) { Name = _config.AssistantName };
             recognizer.UnloadAllGrammars();
             recognizer.LoadGrammar( symbaGrammar );
             recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>( HandleSpeech );
@@ -49,7 +71,7 @@ namespace VoiceUI
 
         private static async void HandleSpeech( object sender, SpeechRecognizedEventArgs e )
         {
-            if ( e.Result.Grammar.Name != "Simba" || e.Result.Confidence < 0.94 )
+            if ( e.Result.Grammar.Name != _config.AssistantName || e.Result.Confidence < _config.MinConfidence )
                 return;
 
             var speech = await Task.Run( () => _recorder.Record() );
@@ -60,10 +82,8 @@ namespace VoiceUI
 
         private static void TextToSpeech( AssistantResponse response )
         {
-            var synth = new SpeechSynthesizer();
-            synth.SetOutputToDefaultAudioDevice();
             _assistant.MuteAllPlugins();
-            synth.Speak( response.Text );
+            _synth.Speak( response.Text );
             _assistant.UnmuteAllPlugins();
         }
     }
